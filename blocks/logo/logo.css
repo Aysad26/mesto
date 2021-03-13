@@ -1,12 +1,22 @@
 .logo {
   display: block;
-  fill: white;
+  margin-top: 45px;
+  margin-bottom: 41px;
   width: 142px;
   height: 33px;
+  background: url(../../images/logo.svg) no-repeat;
+  background-position: center;
+  background-size: contain;
 }
 
-.header__link:hover .logo {
-  fill: black;
+.logo:hover {
+  background-image: url(../../images/logo-hover);
+}
+
+@media screen and (max-width: 907px) {
+  .logo {
+    margin-left: 27px;
+  }
 }
 
 @media screen and (max-width: 767px) {
