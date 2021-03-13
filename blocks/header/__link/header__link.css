@@ -1,0 +1,19 @@
+.header__link {
+  display: block;
+  margin-top: 45px;
+  margin-bottom: 41px;
+}
+
+@media screen and (max-width: 907px) {
+  .header__link {
+    margin-left: 27px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .header__link {
+    margin-top: 28px;
+    margin-bottom: 32px;
+  }
+}
+

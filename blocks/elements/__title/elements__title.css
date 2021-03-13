@@ -1,0 +1,35 @@
+.elements__title {
+  max-width: 205px;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 29px;
+  color: #000000;
+  margin: 25px 14px 31px 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+/*
+@media screen and (max-width: 1279px) {
+  .photo-grid {
+    width: calc(100% - 48px*2);
+    gap: 14px;
+  }
+}
+
+@media screen and (max-width: 1023px) {
+  .photo-grid {
+    width: calc(100% - 24px*2);
+    gap: 16px;
+    margin-bottom: 88px;
+  }
+}
+
+@media screen and (max-width: 767px) {
+  .photo-grid {
+    width: calc(100% - 16px*2);
+    gap: 12px;
+    margin-bottom: 64px;
+  }
+}
+

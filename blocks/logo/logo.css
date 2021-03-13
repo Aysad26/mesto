@@ -1,0 +1,19 @@
+.logo {
+  display: block;
+  fill: white;
+  width: 142px;
+  height: 33px;
+}
+
+.header__link:hover .logo {
+  fill: black;
+}
+
+@media screen and (max-width: 767px) {
+  .logo {
+    width: 104px;
+    height: 24px;
+  }
+}
+
+

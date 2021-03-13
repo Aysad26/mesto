@@ -1,0 +1,17 @@
+.button_type_add {
+  width: 150px;
+  height: 50px;
+  border: 2px solid #FFFFFF;
+  box-sizing: border-box;
+  border-radius: 2px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media screen and (max-width: 767px) {
+  .button_type_add {
+    width: 100%;
+    margin-bottom: 36px;
+  }
+}
