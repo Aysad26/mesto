@@ -13,7 +13,7 @@
   .button_type_close {
     width: 26px;
     height: 26px;
-    top: calc(- (26px + 19px));
+    top: calc(-26px - 19px);
     right: 5px;
   }
 }
