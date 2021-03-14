@@ -3,7 +3,6 @@
   border: none;
   cursor: pointer;
   outline: none;
-  border: 0;
   background: transparent;
   transition: opacity 0.15s ease-in;
 }
