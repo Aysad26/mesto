@@ -7,9 +7,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  padding: 0;
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 900px) {
   .button_type_add {
     width: 100%;
     margin-bottom: 36px;
