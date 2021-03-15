@@ -8,39 +8,25 @@ let name = document.querySelector('.profile__title');
 let job = document.querySelector('.profile__subtitle');
 
 
-function OpenPopup() {
-    popup.classList.add('popup__opened')
-    // Почему-то не работает, если внутри функции не объявляю эти переменные снова...
-    let name = document.querySelector('.profile__title');
-    let job = document.querySelector('.profile__subtitle');
+function openPopup() {
+    popup.classList.add('popup_opened')
     nameInput.value = name.textContent
     jobInput.value = job.textContent
 };
 
-function ClosePopup() {
-    popup.classList.remove('popup__opened')
+function closePopup() {
+    popup.classList.remove('popup_opened')
 };
 
 function formSubmitHandler (evt) {
     evt.preventDefault(); 
-    // Почему-то не работает, если внутри функции не объявляю эти переменные снова...    
-    let name = document.querySelector('.profile__title');
-    let job = document.querySelector('.profile__subtitle');
-
     name.textContent = nameInput.value;
     job.textContent = jobInput.value;
-
-    ClosePopup();
+    closePopup();
 }
 
 formElement.addEventListener('submit', formSubmitHandler);
-
-buttonTypeEdit.addEventListener('click', function() {
-    OpenPopup();
-});
-
-buttonTypeClose.addEventListener('click', function() {
-    ClosePopup();
-});
+buttonTypeEdit.addEventListener('click', openPopup);
+buttonTypeClose.addEventListener('click', closePopup);
 
 
