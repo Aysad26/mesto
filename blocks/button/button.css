@@ -10,3 +10,11 @@
 .button:hover {
   opacity: 0.6;
 }
+
+.button:focus {
+  outline: none;
+}
+
+.button:active {
+  outline: none;
+}

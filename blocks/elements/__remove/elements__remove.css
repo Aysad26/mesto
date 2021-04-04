@@ -17,3 +17,11 @@
 .elements__remove:hover {
   opacity: 0.5;
 }
+
+.elements__remove:focus {
+  outline: none;
+}
+
+.elements__remove:active {
+  outline: none;
+}

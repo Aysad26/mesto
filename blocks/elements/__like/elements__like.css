@@ -14,3 +14,11 @@
 .elements__like:hover {
   opacity: 0.5;
 }
+
+.elements__like:focus {
+  outline: none;
+}
+
+.elements__like:active {
+  outline: none;
+}
