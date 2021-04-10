@@ -1,3 +1,5 @@
+const popup = document.querySelector('.popup');
+const popupWindow = document.querySelector('.popup');
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupImage = document.querySelector('.popup_type_image');
 const popupAdd = document.querySelector('.popup_type_add');
@@ -79,7 +81,17 @@ function generateCard(item) {
 };
 
 function openPopup(popup) {
+  const popupOverlay = popup.querySelector('.popup__overlay');
+  
   popup.classList.add('popup_opened')
+
+  document.addEventListener('keydown', function (evt) {
+    if (evt.key === "Escape") {
+      closePopup(popup);
+      }
+    });
+
+  popupOverlay.addEventListener('click', () => closePopup(popup));
 };
 
 function closePopup(popup) {
@@ -117,3 +129,14 @@ buttonTypeAdd.addEventListener('click', () => openPopup(popupAdd));
 buttonTypeCloseEdit.addEventListener('click', () => closePopup(popupEdit));
 buttonTypeCloseAdd.addEventListener('click', () => closePopup(popupAdd));
 buttonTypeCloseImage.addEventListener('click', () => closePopup(popupImage));
+buttonTypeCloseAdd.addEventListener('click', () => closePopup(popupAdd));
+buttonTypeCloseImage.addEventListener('click', () => closePopup(popupImage));
+
+
+
+
+
+ 
+
+
+
