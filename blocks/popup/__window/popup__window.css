@@ -1,6 +1,6 @@
 .popup__window {
   position: relative;
-  max-width: 430px;
+  width: 430px;
   background: #FFFFFF;
   box-sizing: border-box;
   box-shadow: 0px 0px 25px rgba(0, 0, 0, 0.15);

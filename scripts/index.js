@@ -17,6 +17,7 @@ const linkInput = document.querySelector('.form__item_type_link');
 const name = document.querySelector('.profile__title');
 const job = document.querySelector('.profile__subtitle');
 const popupImagePic = popupImage.querySelector('.popup__image');
+const formInputError = popup.querySelector('.form__input-error_active');
 const popupCaption = popupImage.querySelector('.popup__caption');
 const list = document.querySelector('.elements__grid');
 const elementItemTemplate = document.querySelector('.element__item-template').content.querySelector('.elements__item');
@@ -83,7 +84,7 @@ function generateCard(item) {
 function openPopup(popup) {
   const popupOverlay = popup.querySelector('.popup__overlay');
   
-  popup.classList.add('popup_opened')
+  popup.classList.add('popup_opened');
 
   document.addEventListener('keydown', function (evt) {
     if (evt.key === "Escape") {
@@ -95,7 +96,14 @@ function openPopup(popup) {
 };
 
 function closePopup(popup) {
-  popup.classList.remove('popup_opened')
+  popup.classList.remove('popup_opened');
+
+  document.removeEventListener('keydown', function (evt) {
+    if (evt.key === "Escape") {
+      closePopup(popup);
+      }
+    });
+     
 };
 
 function formSubmitHandler (evt) {
@@ -107,8 +115,7 @@ function formSubmitHandler (evt) {
 
 function addCard (evt) {
   const elementItem = generateCard({name: titleInput.value , link: linkInput.value});
-  const formElementAdd = document.querySelector('.form_type_add');
-
+  
   evt.preventDefault();
   list.prepend(elementItem);
   closePopup(popupAdd);
@@ -125,18 +132,19 @@ buttonTypeEdit.addEventListener('click', function (){
   openPopup(popupEdit);
 }); 
 
+buttonTypeEdit.addEventListener('click', function (){
+  nameInput.value = name.textContent; 
+  jobInput.value = job.textContent;
+  openPopup(popupEdit);
+}); 
+
+buttonTypeCloseAdd.addEventListener('click', function () {
+  closePopup(popupAdd);
+  formElementAdd.reset();
+}); 
+
 buttonTypeAdd.addEventListener('click', () => openPopup(popupAdd));
 buttonTypeCloseEdit.addEventListener('click', () => closePopup(popupEdit));
 buttonTypeCloseAdd.addEventListener('click', () => closePopup(popupAdd));
 buttonTypeCloseImage.addEventListener('click', () => closePopup(popupImage));
-buttonTypeCloseAdd.addEventListener('click', () => closePopup(popupAdd));
 buttonTypeCloseImage.addEventListener('click', () => closePopup(popupImage));
-
-
-
-
-
- 
-
-
-

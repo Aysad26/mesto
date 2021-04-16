@@ -1,5 +1,6 @@
 .form__input-container {
   border: none;
   padding: 0;
-  color: black;
+  margin-bottom: 18px;
+  position: relative;
 }
