@@ -3,6 +3,9 @@ const popupWindow = document.querySelector('.popup');
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupImage = document.querySelector('.popup_type_image');
 const popupAdd = document.querySelector('.popup_type_add');
+const popupOverlayEdit = document.querySelector('.popup__overlay_edit');
+const popupOverlayAdd = document.querySelector('.popup__overlay_add');
+const popupOverlayImage = document.querySelector('.popup__overlay_image');
 const buttonTypeEdit = document.querySelector('.button_type_edit');
 const buttonTypeAdd = document.querySelector('.button_type_add');
 const buttonTypeCloseEdit = popupEdit.querySelector('.button_type_close');
@@ -82,31 +85,23 @@ function generateCard(item) {
 };
 
 function openPopup(popup) {
-  const popupOverlay = popup.querySelector('.popup__overlay');
-  
   popup.classList.add('popup_opened');
 
-  document.addEventListener('keydown', function (evt) {
+  function closeEscape(evt) {
     if (evt.key === "Escape") {
       closePopup(popup);
-      }
-    });
-
-  popupOverlay.addEventListener('click', () => closePopup(popup));
+    }
+    document.removeEventListener('keydown', closeEscape);
+  }
+  
+  document.addEventListener('keydown', closeEscape);
 };
 
 function closePopup(popup) {
   popup.classList.remove('popup_opened');
-
-  document.removeEventListener('keydown', function (evt) {
-    if (evt.key === "Escape") {
-      closePopup(popup);
-      }
-    });
-     
 };
 
-function formSubmitHandler (evt) {
+function handleFormSubmit (evt) {
   evt.preventDefault(); 
   name.textContent = nameInput.value;
   job.textContent = jobInput.value;
@@ -123,7 +118,7 @@ function addCard (evt) {
 };
 
 
-formElement.addEventListener('submit', formSubmitHandler);
+formElement.addEventListener('submit', handleFormSubmit);
 formElementAdd.addEventListener('submit', addCard);
 
 buttonTypeEdit.addEventListener('click', function (){
@@ -148,3 +143,6 @@ buttonTypeCloseEdit.addEventListener('click', () => closePopup(popupEdit));
 buttonTypeCloseAdd.addEventListener('click', () => closePopup(popupAdd));
 buttonTypeCloseImage.addEventListener('click', () => closePopup(popupImage));
 buttonTypeCloseImage.addEventListener('click', () => closePopup(popupImage));
+popupOverlayEdit.addEventListener('click', () => closePopup(popupEdit));
+popupOverlayAdd.addEventListener('click', () => closePopup(popupAdd));
+popupOverlayImage.addEventListener('click', () => closePopup(popupImage));
