@@ -7,17 +7,17 @@ const allClasses = {
   errorClass: '.form__input-error_active'
 };
 
-const showInputError = (formElement, inputElement, errorMessage, allClasses) => {
+function showInputError(formElement, inputElement, errorMessage, allClasses) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.add('form__item_type_error');
   errorElement.textContent = errorMessage;
   errorElement.classList.add('form__input-error_active');
 };
 
-const hideInputError = (formElement, inputElement, allClasses) => {
+function hideInputError(formElement, inputElement, allClasses) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
   inputElement.classList.remove('form__item_type_error');
-  errorElement.classList.remove('form__input-error_active');
+  errorElement.classList.remove('.form__input-error_active');
   errorElement.textContent = '';
 };
 
@@ -30,8 +30,8 @@ const checkInputValidity = (formElement, inputElement, allClasses) => {
 };
 
 const setEventListeners = (formElement, allClasses) => {
-  const inputList = Array.from(formElement.querySelectorAll('.form__item'));
-  const buttonElement = formElement.querySelector('.button_type_submit');
+  const inputList = Array.from(formElement.querySelectorAll(allClasses.inputSelector));
+  const buttonElement = formElement.querySelector(allClasses.submitButtonSelector);
   toggleButtonState(inputList, buttonElement, allClasses);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
@@ -43,15 +43,13 @@ const setEventListeners = (formElement, allClasses) => {
 
 setEventListeners
 
-const enableValidation = (allClasses) => {
-  
-  const formList = Array.from(document.querySelectorAll(allClasses.formSelector));
+function enableValidation(allClasses) {
+    const formList = Array.from(document.querySelectorAll(allClasses.formSelector));
   formList.forEach((formElement) => {
   formElement.addEventListener('submit', (evt) => {
     evt.preventDefault();
   });
-
-    setEventListeners(formElement);
+    setEventListeners(formElement, allClasses);
 }); 
 };
 

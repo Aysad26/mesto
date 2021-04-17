@@ -88,7 +88,7 @@ function openPopup(popup) {
   const buttonElement = formElement.querySelector('.button_type_submit');
   buttonElement.setAttribute("disabled", "disabled");
   buttonElement.classList.add('button_inactive');
-
+  
   function closeEscape(evt) {
     if (evt.key === "Escape") {
       closePopup(popup);
