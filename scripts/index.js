@@ -85,7 +85,9 @@ function generateCard(item) {
 };
 
 function openPopup(popup) {
-  popup.classList.add('popup_opened');
+  const buttonElement = formElement.querySelector('.button_type_submit');
+  buttonElement.setAttribute("disabled", "disabled");
+  buttonElement.classList.add('button_inactive');
 
   function closeEscape(evt) {
     if (evt.key === "Escape") {
@@ -95,6 +97,8 @@ function openPopup(popup) {
   }
   
   document.addEventListener('keydown', closeEscape);
+
+  popup.classList.add('popup_opened');
 };
 
 function closePopup(popup) {
