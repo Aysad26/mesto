@@ -2,22 +2,22 @@ const allClasses = {
   formSelector: '.form',
   inputSelector: '.form__item',
   submitButtonSelector: '.button_type_submit',
-  inactiveButtonClass: '.button_inactive',
-  inputErrorClass: '.form__item_type_error',
-  errorClass: '.form__input-error_active'
+  inactiveButtonClass: 'button_inactive',
+  inputErrorClass: 'form__item_type_error',
+  errorClass: 'form__input-error_active'
 };
 
 function showInputError(formElement, inputElement, errorMessage, allClasses) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.add('form__item_type_error');
+  inputElement.classList.add(allClasses.inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add('form__input-error_active');
+  errorElement.classList.add(allClasses.errorClass);
 };
 
 function hideInputError(formElement, inputElement, allClasses) {
   const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  inputElement.classList.remove('form__item_type_error');
-  errorElement.classList.remove('.form__input-error_active');
+  inputElement.classList.remove(allClasses.inputErrorClass);
+  errorElement.classList.remove(allClasses.errorClass);
   errorElement.textContent = '';
 };
 
@@ -59,13 +59,13 @@ const hasInvalidInput = (inputList) => {
   })
 }; 
 
-const toggleButtonState = (inputList, buttonElement, allClasses) => {
+function toggleButtonState(inputList, buttonElement, allClasses) {
   if (hasInvalidInput(inputList)) {
     buttonElement.setAttribute("disabled", "disabled");
-    buttonElement.classList.add('button_inactive');
+    buttonElement.classList.add(allClasses.inactiveButtonClass);
   } else {
     buttonElement.removeAttribute("disabled", "disabled");
-    buttonElement.classList.remove('button_inactive');
+    buttonElement.classList.remove(allClasses.inactiveButtonClass);
   }
 }; 
 

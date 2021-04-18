@@ -84,24 +84,19 @@ function generateCard(item) {
   return elementItem;
 };
 
-function openPopup(popup) {
-  const buttonElement = formElement.querySelector('.button_type_submit');
-  buttonElement.setAttribute("disabled", "disabled");
-  buttonElement.classList.add('button_inactive');
-  
-  function closeEscape(evt) {
-    if (evt.key === "Escape") {
-      closePopup(popup);
-    }
-    document.removeEventListener('keydown', closeEscape);
+function closeEscape(evt) {
+  if (evt.key === "Escape") {
+    closePopup(document.querySelector('.popup_opened'));
   }
-  
-  document.addEventListener('keydown', closeEscape);
+}
 
+function openPopup(popup) {
+  document.addEventListener('keydown', closeEscape);
   popup.classList.add('popup_opened');
 };
 
 function closePopup(popup) {
+  document.removeEventListener('keydown', closeEscape);
   popup.classList.remove('popup_opened');
 };
 
@@ -142,7 +137,12 @@ buttonTypeCloseAdd.addEventListener('click', function () {
   formElementAdd.reset();
 }); 
 
-buttonTypeAdd.addEventListener('click', () => openPopup(popupAdd));
+buttonTypeAdd.addEventListener('click', () => {openPopup(popupAdd);
+  const buttonElement = formElementAdd.querySelector('.button_type_submit');
+  buttonElement.setAttribute("disabled", "disabled");
+  buttonElement.classList.add('button_inactive');
+});
+
 buttonTypeCloseEdit.addEventListener('click', () => closePopup(popupEdit));
 buttonTypeCloseAdd.addEventListener('click', () => closePopup(popupAdd));
 buttonTypeCloseImage.addEventListener('click', () => closePopup(popupImage));
