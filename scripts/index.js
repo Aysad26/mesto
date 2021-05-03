@@ -22,8 +22,9 @@ const linkInput = document.querySelector('.form__item_type_link');
 const name = document.querySelector('.profile__title');
 const job = document.querySelector('.profile__subtitle');
 const popupImagePic = popupImage.querySelector('.popup__image');
-const formInputError = popup.querySelector('.form__input-error_active');
 const popupCaption = popupImage.querySelector('.popup__caption');
+const formInputError = popup.querySelector('.form__input-error_active');
+
 
 
 const list = document.querySelector('.elements__grid');
