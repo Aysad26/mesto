@@ -1,3 +1,5 @@
+import { Card } from './card'
+
 const popup = document.querySelector('.popup');
 const popupWindow = document.querySelector('.popup');
 const popupEdit = document.querySelector('.popup_type_edit');
@@ -22,6 +24,8 @@ const job = document.querySelector('.profile__subtitle');
 const popupImagePic = popupImage.querySelector('.popup__image');
 const formInputError = popup.querySelector('.form__input-error_active');
 const popupCaption = popupImage.querySelector('.popup__caption');
+
+
 const list = document.querySelector('.elements__grid');
 
 
@@ -52,61 +56,15 @@ const initialCards = [
     }
   ];
 
-  class Card {
-    constructor(cardData) {
-      this.cardData = cardData;
-      this.elementItem = this.generateCard();
-      this.likeButton = this.elementItem.querySelector('.elements__like');
-      this.makeEventListeners();
-    }
   
-    generateCard() {
-      const elementItem = document.querySelector('.element__item-template').content.querySelector('.elements__item').cloneNode(true);
-      const image = elementItem.querySelector('.elements__image')
-      const title = elementItem.querySelector('.elements__title');
-      image.src = this.cardData.link;
-      image.alt = this.cardData.name;
-      title.textContent = this.cardData.name;
-      return elementItem;
-    }
-  
-    like() {
-      this.likeButton.classList.toggle("element__like_active");
-    }
-  
-    remove() {
-      this.elementItem.remove();
-    }
-  
-    preview() {
-      popupImagePic.src = this.elementItem.link;
-      popupCaption.textContent = this.elementItem.name;
-      popupImagePic.alt = this.elementItem.name;
-      openPopup(popupImage);
-    }
-
-    makeEventListeners() {
-      const likeButton = this.elementItem.querySelector('.elements__like');
-      likeButton.addEventListener('click', () => this.like());
-    }
-
-    getElement() {
-      return this.elementItem;
-    }
-    
-   
-  }
-  
-  
- 
-
 initialCards.forEach((item) => {
   list.append(createCard(item));
 });
 
 function createCard(item) {
   const cardElement = new Card(item, '.element__item-template');
-  return cardElement.generateCard();
+  const cardToAppend = cardElement.getElement();
+  return cardToAppend;
 }
 
 function addCard (evt) {
@@ -114,7 +72,8 @@ function addCard (evt) {
   list.prepend(createCard({name: titleInput.value , link: linkInput.value}));
   closePopup(popupAdd);
   formElementAdd.reset();
-};
+}
+
 
 
 function closeEscape(evt) {
@@ -126,7 +85,7 @@ function closeEscape(evt) {
 function openPopup(popup) {
   document.addEventListener('keydown', closeEscape);
   popup.classList.add('popup_opened');
-};
+}
 
 function closePopup(popup) {
   document.removeEventListener('keydown', closeEscape);
@@ -138,7 +97,7 @@ function handleFormSubmit (evt) {
   name.textContent = nameInput.value;
   job.textContent = jobInput.value;
   closePopup(popupEdit);
-};
+}
 
 
 formElement.addEventListener('submit', handleFormSubmit);
