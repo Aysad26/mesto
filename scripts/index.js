@@ -23,7 +23,8 @@ const popupImagePic = popupImage.querySelector('.popup__image');
 const formInputError = popup.querySelector('.form__input-error_active');
 const popupCaption = popupImage.querySelector('.popup__caption');
 const list = document.querySelector('.elements__grid');
-const elementItemTemplate = document.querySelector('.element__item-template').content.querySelector('.elements__item');
+
+
 const initialCards = [
     {
       name: 'Архыз',
@@ -50,39 +51,71 @@ const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
     }
   ];
+
+  class Card {
+    constructor(cardData) {
+      this.cardData = cardData;
+      this.elementItem = this.generateCard();
+      this.likeButton = this.elementItem.querySelector('.elements__like');
+      this.makeEventListeners();
+    }
   
-initialCards.forEach(function(item) {
-  const elementItem = generateCard(item);
-  list.append(elementItem);
+    generateCard() {
+      const elementItem = document.querySelector('.element__item-template').content.querySelector('.elements__item').cloneNode(true);
+      const image = elementItem.querySelector('.elements__image')
+      const title = elementItem.querySelector('.elements__title');
+      image.src = this.cardData.link;
+      image.alt = this.cardData.name;
+      title.textContent = this.cardData.name;
+      return elementItem;
+    }
+  
+    like() {
+      this.likeButton.classList.toggle("element__like_active");
+    }
+  
+    remove() {
+      this.elementItem.remove();
+    }
+  
+    preview() {
+      popupImagePic.src = this.elementItem.link;
+      popupCaption.textContent = this.elementItem.name;
+      popupImagePic.alt = this.elementItem.name;
+      openPopup(popupImage);
+    }
+
+    makeEventListeners() {
+      const likeButton = this.elementItem.querySelector('.elements__like');
+      likeButton.addEventListener('click', () => this.like());
+    }
+
+    getElement() {
+      return this.elementItem;
+    }
+    
+   
+  }
+  
+  
+ 
+
+initialCards.forEach((item) => {
+  list.append(createCard(item));
 });
 
-function generateCard(item) {
-  const elementItem = elementItemTemplate.cloneNode(true);
-  const elementItemTitle = elementItem.querySelector('.elements__title');
-  const elementItemImage = elementItem.querySelector('.elements__image');
-  const likeButton = elementItem.querySelector('.elements__like');
-  const removeButton = elementItem.querySelector('.elements__remove');
-  const imageButton = elementItem.querySelector('.elements__image');
-  elementItemTitle.textContent = item.name;
-  elementItemImage.src = item.link;
-  elementItemImage.alt = item.name;
+function createCard(item) {
+  const cardElement = new Card(item, '.element__item-template');
+  return cardElement.generateCard();
+}
 
-  likeButton.addEventListener('click', function (){
-    likeButton.classList.toggle('elements__like_active');});
-
-  removeButton.addEventListener('click', function () {
-    removeButton.closest('.elements__item').remove()
-  }); 
-
-  imageButton.addEventListener('click', function () {
-    popupImagePic.src = item.link;
-    popupCaption.textContent = item.name;
-    popupImagePic.alt = item.name;
-    openPopup(popupImage);
-  }); 
-  
-  return elementItem;
+function addCard (evt) {
+  evt.preventDefault();
+  list.prepend(createCard({name: titleInput.value , link: linkInput.value}));
+  closePopup(popupAdd);
+  formElementAdd.reset();
 };
+
 
 function closeEscape(evt) {
   if (evt.key === "Escape") {
@@ -105,15 +138,6 @@ function handleFormSubmit (evt) {
   name.textContent = nameInput.value;
   job.textContent = jobInput.value;
   closePopup(popupEdit);
-};
-
-function addCard (evt) {
-  const elementItem = generateCard({name: titleInput.value , link: linkInput.value});
-  
-  evt.preventDefault();
-  list.prepend(elementItem);
-  closePopup(popupAdd);
-  formElementAdd.reset();
 };
 
 
@@ -150,3 +174,4 @@ buttonTypeCloseImage.addEventListener('click', () => closePopup(popupImage));
 popupOverlayEdit.addEventListener('click', () => closePopup(popupEdit));
 popupOverlayAdd.addEventListener('click', () => closePopup(popupAdd));
 popupOverlayImage.addEventListener('click', () => closePopup(popupImage));
+
