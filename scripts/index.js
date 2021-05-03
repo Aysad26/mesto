@@ -3,8 +3,8 @@ import { FormValidator } from './FormValidator.js';
 
 const popup = document.querySelector('.popup');
 const popupWindow = document.querySelector('.popup');
+export const popupImage = document.querySelector('.popup_type_image');
 const popupEdit = document.querySelector('.popup_type_edit');
-const popupImage = document.querySelector('.popup_type_image');
 const popupAdd = document.querySelector('.popup_type_add');
 const popupOverlayEdit = document.querySelector('.popup__overlay_edit');
 const popupOverlayAdd = document.querySelector('.popup__overlay_add');
@@ -14,12 +14,10 @@ const buttonTypeAdd = document.querySelector('.button_type_add');
 const buttonTypeCloseEdit = popupEdit.querySelector('.button_type_close');
 const buttonTypeCloseAdd = popupAdd.querySelector('.button_type_close');
 const buttonTypeCloseImage = popupImage.querySelector('.button_type_close');
-
 const name = document.querySelector('.profile__title');
 const job = document.querySelector('.profile__subtitle');
-const popupImagePic = popupImage.querySelector('.popup__image');
-const popupCaption = popupImage.querySelector('.popup__caption');
-
+export const popupImagePic = popupImage.querySelector('.popup__image');
+export const popupCaption = popupImage.querySelector('.popup__caption');
 const formElement = document.querySelector('.form');
 const formElementProfile = document.querySelector('.form_type_profile'); 
 const formElementAdd = document.querySelector('.form_type_add');
@@ -28,9 +26,6 @@ const jobInput = document.querySelector('.form__item_type_job');
 const titleInput = document.querySelector('.form__item_type_title');
 const linkInput = document.querySelector('.form__item_type_link');
 const formInputError = popup.querySelector('.form__input-error_active');
-
-
-
 const list = document.querySelector('.elements__grid');
 
 
@@ -87,7 +82,7 @@ function closeEscape(evt) {
   }
 }
 
-function openPopup(popup) {
+export function openPopup(popup) {
   document.addEventListener('keydown', closeEscape);
   popup.classList.add('popup_opened');
 }

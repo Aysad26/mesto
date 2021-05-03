@@ -1,3 +1,9 @@
+import { popupImage } from './index.js';
+import { popupImagePic } from './index.js';
+import { popupCaption } from './index.js';
+import { openPopup } from './index.js';
+
+
 export class Card {
     constructor(_cardData) {
       this._cardData = _cardData;
