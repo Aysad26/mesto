@@ -1,9 +1,10 @@
 import { Card } from './Card.js';
 import { FormValidator } from './FormValidator.js';
+import { initialCards } from './initial-cards.js';
 
-const popup = document.querySelector('.popup');
-const popupWindow = document.querySelector('.popup');
 export const popupImage = document.querySelector('.popup_type_image');
+export const popupImagePic = popupImage.querySelector('.popup__image');
+export const popupCaption = popupImage.querySelector('.popup__caption');
 const popupEdit = document.querySelector('.popup_type_edit');
 const popupAdd = document.querySelector('.popup_type_add');
 const popupOverlayEdit = document.querySelector('.popup__overlay_edit');
@@ -16,8 +17,6 @@ const buttonTypeCloseAdd = popupAdd.querySelector('.button_type_close');
 const buttonTypeCloseImage = popupImage.querySelector('.button_type_close');
 const name = document.querySelector('.profile__title');
 const job = document.querySelector('.profile__subtitle');
-export const popupImagePic = popupImage.querySelector('.popup__image');
-export const popupCaption = popupImage.querySelector('.popup__caption');
 const formElement = document.querySelector('.form');
 const formElementProfile = document.querySelector('.form_type_profile'); 
 const formElementAdd = document.querySelector('.form_type_add');
@@ -25,36 +24,7 @@ const nameInput = document.querySelector('.form__item_type_name');
 const jobInput = document.querySelector('.form__item_type_job');
 const titleInput = document.querySelector('.form__item_type_title');
 const linkInput = document.querySelector('.form__item_type_link');
-const formInputError = popup.querySelector('.form__input-error_active');
 const list = document.querySelector('.elements__grid');
-
-
-const initialCards = [
-    {
-      name: 'Архыз',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-    },
-    {
-      name: 'Челябинская область',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-    },
-    {
-      name: 'Иваново',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-    },
-    {
-      name: 'Камчатка',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-    },
-    {
-      name: 'Холмогорский район',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-    },
-    {
-      name: 'Байкал',
-      link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-    }
-  ];
 
   
 initialCards.forEach((item) => {
@@ -63,7 +33,7 @@ initialCards.forEach((item) => {
 
 function createCard(item) {
   const cardElement = new Card(item, '.element__item-template');
-  const cardToAppend = cardElement.getElement();
+  const cardToAppend = cardElement.generateCard();
   return cardToAppend;
 }
 
@@ -120,10 +90,10 @@ buttonTypeCloseAdd.addEventListener('click', function () {
   formElementAdd.reset();
 }); 
 
-buttonTypeAdd.addEventListener('click', () => {openPopup(popupAdd);
-  const buttonElement = formElementAdd.querySelector('.button_type_submit');
-  buttonElement.setAttribute("disabled", "disabled");
-  buttonElement.classList.add('button_inactive');
+buttonTypeAdd.addEventListener('click', () => {
+  openPopup(popupAdd);
+  const addFormValidator = new FormValidator(allClasses, formElementAdd);
+  addFormValidator.toggleButtonState();
 });
 
 buttonTypeCloseEdit.addEventListener('click', () => closePopup(popupEdit));

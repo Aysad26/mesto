@@ -5,20 +5,25 @@ import { openPopup } from './index.js';
 
 
 export class Card {
-    constructor(_cardData) {
-      this._cardData = _cardData;
-      this._elementItem = this._generateCard();
+    constructor(cardData, templateSelector) {
+      this._cardData = cardData;
+      this._templateSelector = templateSelector;
+      this._elementItem = this.generateCard();
       this.likeButton = this._elementItem.querySelector('.elements__like');
       this._makeEventListeners();
     }
   
-    _generateCard() {
-      const _elementItem = document.querySelector('.element__item-template').content.querySelector('.elements__item').cloneNode(true);
+    generateCard() {
+      const _elementItem = document.querySelector(this._templateSelector).content.querySelector('.elements__item').cloneNode(true);
       const image = _elementItem.querySelector('.elements__image')
       const title = _elementItem.querySelector('.elements__title');
+      this.likeButton = _elementItem.querySelector('.elements__like');
+      this.removeButton = _elementItem.querySelector('.elements__remove');
+      this.imageButton = _elementItem.querySelector('.elements__image');
       image.src = this._cardData.link;
       image.alt = this._cardData.name;
       title.textContent = this._cardData.name;
+      this._makeEventListeners();
       return _elementItem;
     }
   
@@ -27,6 +32,7 @@ export class Card {
     }
   
     _remove() {
+      console.log (this.removeButton)
       this._elementItem.remove();
     }
   
@@ -38,15 +44,9 @@ export class Card {
     }
 
     _makeEventListeners() {
-      const removeButton = this._elementItem.querySelector('.elements__remove');
-      const imageButton = this._elementItem.querySelector('.elements__image');
       this.likeButton.addEventListener('click', () => this._like());
-      removeButton.addEventListener('click', () => this._remove());
-      imageButton.addEventListener('click', () => this._preview());
+      this.removeButton.addEventListener('click', () => this._remove());
+      this.imageButton.addEventListener('click', () => this._preview());
     }
 
-    getElement() {
-      return this._elementItem;
-    }
-   
 }
