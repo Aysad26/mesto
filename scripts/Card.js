@@ -8,9 +8,6 @@ export class Card {
     constructor(cardData, templateSelector) {
       this._cardData = cardData;
       this._templateSelector = templateSelector;
-      this._elementItem = this.generateCard();
-      this.likeButton = this._elementItem.querySelector('.elements__like');
-      this.removeButton = this._elementItem.querySelector('.elements__remove');
     }
   
     generateCard() {

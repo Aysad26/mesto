@@ -62,7 +62,7 @@ function closePopup(popup) {
   popup.classList.remove('popup_opened');
 };
 
-function handleFormSubmit (evt) {
+function handleFormProfileSubmit (evt) {
   evt.preventDefault(); 
   name.textContent = nameInput.value;
   job.textContent = jobInput.value;
@@ -70,7 +70,7 @@ function handleFormSubmit (evt) {
 }
 
 
-formElement.addEventListener('submit', handleFormSubmit);
+formElement.addEventListener('submit', handleFormProfileSubmit);
 formElementAdd.addEventListener('submit', addCard);
 
 buttonTypeEdit.addEventListener('click', function (){
@@ -92,7 +92,6 @@ buttonTypeCloseAdd.addEventListener('click', function () {
 
 buttonTypeAdd.addEventListener('click', () => {
   openPopup(popupAdd);
-  const addFormValidator = new FormValidator(allClasses, formElementAdd);
   addFormValidator.toggleButtonState();
 });
 
