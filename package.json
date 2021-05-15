@@ -1,0 +1,19 @@
+{
+  "name": "mesto",
+  "version": "1.0.0",
+  "description": "Данный проект сделан в рамках обучения по направлению \"Веб-Разработчик\" онлайн-школы \"Яндекс.Практикум\". В проекте применены знания и навыки, изученные в курсе \"Базовый JavaScript и работа с браузером\", а также в предыдущих курсах.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aysad26/mesto.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aysad26/mesto/issues"
+  },
+  "homepage": "https://github.com/Aysad26/mesto#readme"
+}
