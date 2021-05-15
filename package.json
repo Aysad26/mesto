@@ -1,0 +1,39 @@
+{
+  "name": "mesto",
+  "version": "0.0.1",
+  "description": "Данный проект сделан в рамках обучения по направлению \"Веб-Разработчик\" онлайн-школы \"Яндекс.Практикум\". В проекте применены знания и навыки, изученные в курсе \"Базовый JavaScript и работа с браузером\", а также в предыдущих курсах.",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --mode production",
+    "dev": "webpack serve"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Aysad26/mesto.git"
+  },
+  "author": "Anton Sadyrin",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Aysad26/mesto/issues"
+  },
+  "homepage": "https://github.com/Aysad26/mesto#readme",
+  "devDependencies": {
+    "@babel/core": "^7.14.2",
+    "@babel/preset-env": "^7.14.2",
+    "autoprefixer": "^10.2.5",
+    "babel-loader": "^8.2.2",
+    "clean-webpack-plugin": "*",
+    "css-loader": "^5.2.4",
+    "cssnano": "^5.0.2",
+    "html-webpack-plugin": "^5.3.1",
+    "mini-css-extract-plugin": "^1.6.0",
+    "postcss-loader": "^5.3.0",
+    "webpack": "^5.37.0",
+    "webpack-cli": "^4.7.0",
+    "webpack-dev-server": "^3.11.2"
+  },
+  "dependencies": {
+    "core-js": "^3.12.1",
+    "rimraf": "^3.0.2"
+  }
+}
