@@ -7,12 +7,12 @@
 </head>
 <body class="root">
   <header class="header">
-    <img class="logo" src="./images/logo.svg" alt="логотип проекта">
+    <img class="logo" src="<%=require('./images/logo.svg')%>" alt="логотип проекта">
   </header>
   <main class="main">
     <section class="profile">
       <div class="profile__info">
-        <img class="profile__image" src="./images/profile-img.jpg" alt="Фото профиля">
+        <img class="profile__image" src="<%=require('./images/profile-img.jpg')%>" alt="Фото профиля">
         <div>
           <div class="profile__container">
             <h1 class="profile__title">Жак-Ив Кусто</h1>
@@ -22,7 +22,7 @@
         </div>
       </div>
       <button type="button" class="button button_type_add">
-        <img class="button__add-icon" src="./images/add-icon.svg" alt="Иконка добавить">
+        <img class="button__add-icon" src="<%=require('./images/add-icon.svg')%>" alt="Иконка добавить">
       </button>
     </section>  
     <section class="elements">
