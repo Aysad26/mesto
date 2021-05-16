@@ -1,13 +1,8 @@
-import { popupImage } from './index.js';
-import { popupImagePic } from './index.js';
-import { popupCaption } from './index.js';
-import { openPopup } from './index.js';
-
-
 export class Card {
-    constructor(cardData, templateSelector) {
+    constructor(cardData, handleCardClick, templateSelector) {
       this._cardData = cardData;
       this._templateSelector = templateSelector;
+      this._handleCardClick = handleCardClick;
     }
   
     generateCard() {
@@ -32,16 +27,9 @@ export class Card {
       this.removeButton.parentElement.remove()
     }
   
-    _preview() {
-      popupImagePic.src = this._cardData.link;
-      popupCaption.textContent = this._cardData.name;
-      popupImagePic.alt = this._cardData.name;
-      openPopup(popupImage);
-    }
-
     _makeEventListeners() {
       this.likeButton.addEventListener('click', () => this._like());
       this.removeButton.addEventListener('click', () => this._removeCard());
-      this.imageButton.addEventListener('click', () => this._preview());
+      this.imageButton.addEventListener('click', () => this._handleCardClick());
     }
 }
