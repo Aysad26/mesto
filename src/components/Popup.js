@@ -4,7 +4,6 @@ class Popup {
       this.buttonTypeClose = this._popup.querySelector('.button_type_close');
       this.overlay = this._popup.querySelector('.popup__overlay');
       this._handleEscClose = this._handleEscClose.bind(this)
-      console.log (this.buttonTypeClose);
     }
   
     open() {

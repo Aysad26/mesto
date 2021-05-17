@@ -1,10 +1,10 @@
-import { Card } from './Card.js';
-import { FormValidator } from './FormValidator.js';
-import { initialCards } from './initial-cards.js';
-import { PopupWithForm } from './PopupWithForm.js';
-import PopupWithImage from './PopupWithImage.js';
-import UserInfo from './UserInfo.js';
-import { list, buttonTypeEdit, buttonTypeAdd, formElementProfile, formElementAdd, popupAdd, popupEdit, nameInput, jobInput, name, job, titleInput, linkInput } from './constants.js';
+import { Card } from '../components/Card.js';
+import { FormValidator } from '../components/FormValidator.js';
+import { initialCards } from '../components/initial-cards.js';
+import { PopupWithForm } from '../components/PopupWithForm.js';
+import PopupWithImage from '../components/PopupWithImage.js';
+import UserInfo from '../components/UserInfo.js';
+import { list, buttonTypeEdit, buttonTypeAdd, formElementProfile, formElementAdd, popupAdd, popupEdit, nameInput, jobInput, name, job, titleInput, linkInput } from '../components/constants.js';
 
 const allClasses = {
   formSelector: '.form',
