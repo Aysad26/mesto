@@ -1,3 +1,4 @@
+import './index.css';
 import { Card } from '../components/Card.js';
 import { FormValidator } from '../components/FormValidator.js';
 import { initialCards } from '../components/initial-cards.js';
@@ -37,16 +38,22 @@ const userInfo = new UserInfo('.profile__title', '.profile__subtitle')
 const popupWithImage = new PopupWithImage('.popup_type_image');
 popupWithImage.setEventListeners()
 
-const popupEditForm = new PopupWithForm('.popup_type_edit', function submitHandler (userData) {
-  userInfo.setUserInfo(userData)
-});
+const popupEditForm = new PopupWithForm('.popup_type_edit', 
+  function submitHandler() {
+      userInfo.setUserInfo({name: nameInput.value , job: jobInput.value})
+  }
+);
 
 popupEditForm.setEventListeners()
 
-const popupAddForm = new PopupWithForm('.popup_type_add', function submitHandler (evt) {
+const popupAddForm = new PopupWithForm('.popup_type_add', function submitHandler() {
   list.prepend(createCard({name: titleInput.value , link: linkInput.value}));
   formElementAdd.reset();
 });
+
+formSubmit: (data) => {
+    userInfo.setUserInfo(data)
+}
 
 popupAddForm.setEventListeners()
 
