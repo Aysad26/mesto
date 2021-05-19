@@ -6,6 +6,7 @@ import { PopupWithForm } from '../components/PopupWithForm.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import UserInfo from '../components/UserInfo.js';
 import { list, buttonTypeEdit, buttonTypeAdd, formElementProfile, formElementAdd, popupAdd, popupEdit, nameInput, jobInput, name, job, titleInput, linkInput } from '../components/constants.js';
+import Section from '../components/Section';
 
 const allClasses = {
   formSelector: '.form',
@@ -15,24 +16,20 @@ const allClasses = {
   inputErrorClass: 'form__item_type_error',
   errorClass: 'form__input-error_active'
 };
+
+const cardSection = new Section({
+      items: initialCards,
+      renderer: function(item) {
+        const cardElement = new Card(item, function handleCardClick() {popupWithImage.open(item)}, '.element__item-template');
+        return cardElement.generateCard();
+      }
+    }, 
+  '.elements__grid'
+);
+
+cardSection.renderItems();
+
   
-initialCards.forEach((item) => {
-  list.append(createCard(item));
-});
-
-function createCard(item) {
-  const cardElement = new Card(item, function handleCardClick() {popupWithImage.open(item)}, '.element__item-template');
-  const cardToAppend = cardElement.generateCard();
-  return cardToAppend;
-}
-
-function addCard (evt) {
-  evt.preventDefault();
-  list.prepend(createCard({name: titleInput.value , link: linkInput.value}));
-  closePopup(popupAdd);
-  formElementAdd.reset();
-}
-
 const userInfo = new UserInfo('.profile__title', '.profile__subtitle')
 
 const popupWithImage = new PopupWithImage('.popup_type_image');
@@ -47,13 +44,10 @@ const popupEditForm = new PopupWithForm('.popup_type_edit',
 popupEditForm.setEventListeners()
 
 const popupAddForm = new PopupWithForm('.popup_type_add', function submitHandler() {
-  list.prepend(createCard({name: titleInput.value , link: linkInput.value}));
+  const cardElement = new Card({name: titleInput.value , link: linkInput.value}, function handleCardClick() {popupWithImage.open(item)}, '.element__item-template')
+  cardSection.addItem({name: titleInput.value , link: linkInput.value});
   formElementAdd.reset();
 });
-
-formSubmit: (data) => {
-    userInfo.setUserInfo(data)
-}
 
 popupAddForm.setEventListeners()
 
