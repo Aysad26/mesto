@@ -23,14 +23,48 @@ export class Api {
         method: 'GET',
         headers: this._headers,
     })
-        .then(result => {
-            if (result.ok) {
-              return result.json()
+        .then(res => {
+            if (res.ok) {
+              return res.json()
             } else {
-              return Promise.reject(`Ошибка: ${result.status}`)
+              return Promise.reject(`Ошибка: ${res.status}`)
             }
         })
     }
 
-}
+    changeUserInfo(data) {
+      return fetch(`${this._baseUrl}/users/me`, {
+        method: 'PATCH',
+        headers: this._headers,
+        body: JSON.stringify({ 
+          name: data.name, 
+          about: data.job 
+        }),
+      })
+      .then(res => {
+          if (res.ok) {
+            return res.json()
+          } else {
+            return Promise.reject(`Ошибка: ${res.status}`)
+          }
+      })
+    }
 
+    addCard({name, link}) {
+      return fetch(`${this._baseUrl}/cards`, {
+        method: 'POST',
+        headers: this._headers,
+        body: JSON.stringify({ 
+          name: name, 
+          link: link 
+        }),
+      })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Ошибка: ${res.status}`);
+      })
+    }
+
+}

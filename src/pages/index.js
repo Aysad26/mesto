@@ -46,48 +46,57 @@ const api = new Api({
 
 api.getCards()
 .then((data) => {
-  console.log (data);
-  const cardSection = new Section({
-  items: data,
-    renderer: function(item) {
-      const cardElement = new Card(item, function handleCardClick() {popupWithImage.open(item)}, '.element__item-template');
-      return cardElement.generateCard();
-    }
-  }, 
-  '.elements__grid'
-  );
-  cardSection.renderItems();
+  const cardSection = new Section({ 
+    items: data, 
+    renderer: function(item) { 
+      const cardElement = new Card(item, function handleCardClick() {popupWithImage.open(item)}, '.element__item-template'); 
+      return cardElement.generateCard(); 
+    } 
+  },  
+  '.elements__grid' 
+  ); 
+  cardSection.renderItems(data);
 })
+
+const userInfo = new UserInfo('.profile__title', '.profile__subtitle', '.profile__image')
 
 api.getUserInfo()
 .then((data) => {
-  name.textContent = data.name;
-  console.log (data.name);
-  console.log (data.about);
-  console.log (data.avatar);
-  job.textContent = data.about;
-  userImage.src = data.avatar;
+  userInfo.setUserInfo(data);
 })
-
-const userInfo = new UserInfo('.profile__title', '.profile__subtitle')
 
 const popupWithImage = new PopupWithImage('.popup_type_image');
 popupWithImage.setEventListeners()
 
 const popupEditForm = new PopupWithForm('.popup_type_edit', 
   function submitHandler() {
-      userInfo.setUserInfo({name: nameInput.value , job: jobInput.value})
-  }
-);
+    api.changeUserInfo({name: nameInput.value , job: jobInput.value})
+    .then((res) => {
+      userInfo.setUserInfo(res);
+    })
+  });
 
 popupEditForm.setEventListeners();
 
 
 
-const popupAddForm = new PopupWithForm('.popup_type_add', function submitHandler() {
-  const cardElement = new Card({name: titleInput.value , link: linkInput.value}, function handleCardClick() {popupWithImage.open(item)}, '.element__item-template')
-  cardSection.addItem({name: titleInput.value , link: linkInput.value});
+const popupAddForm = new PopupWithForm('.popup_type_add', 
+function submitHandler() {
+    api
+    .addCard({name: titleInput.value , link: linkInput.value})
+    .then((data) => {
+      const cardSection = new Section({ 
+        items: data, 
+        renderer: function(item) { 
+          const cardElement = new Card(item, function handleCardClick() {popupWithImage.open(item)}, '.element__item-template'); 
+          return cardElement.generateCard(); 
+        } 
+      },  
+      '.elements__grid' 
+      ); 
+      cardSection.addItem(data);
   formElementAdd.reset();
+  })
 });
 
 popupAddForm.setEventListeners()

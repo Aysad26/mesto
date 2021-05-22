@@ -1,9 +1,10 @@
 import { nameInput, jobInput } from './constants.js';
 
 export default class UserInfo {
-    constructor(nameSelector, jobSelector) {
+    constructor(nameSelector, jobSelector, userPhotoSelrctor) {
         this._name = document.querySelector(nameSelector)
         this._job = document.querySelector(jobSelector)
+        this._userPhoto = document.querySelector(userPhotoSelrctor)
     }
     getUserInfo() {
         const userData = {
@@ -12,9 +13,12 @@ export default class UserInfo {
         }
         return userData
     }
-    setUserInfo({name, job}) {
-        this._name.textContent = name;
-        this._job.textContent = job;
+
+    setUserInfo(data) {
+        this._name.textContent = data.name;
+        this._job.textContent = data.about;
     }
-   
+   setUserAvatar(data) {
+    this._avatar.src = data.avatar;
+  }
 }
