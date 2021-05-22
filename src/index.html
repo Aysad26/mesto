@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Места России</title>
+  
 </head>
 <body class="root">
   <header class="header">
@@ -77,6 +78,16 @@
           </div>
         </fieldset>
         <button class="button button_type_submit" type="submit">Создать</button>
+      </form>
+    </div>
+    <div class="popup__overlay popup__overlay_add"></div>
+  </section>
+  <section class="popup popup_type_remove">
+    <div class="popup__window">
+      <button type="button" class="button button_type_close"></button>
+      <h2 class="popup__heading">Вы уверены?</h2>
+      <form class="form form_type_add" name="add-form" novalidate>
+        <button class="button button_type_submit" type="submit">Да</button>
       </form>
     </div>
     <div class="popup__overlay popup__overlay_add"></div>

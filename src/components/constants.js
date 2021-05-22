@@ -16,6 +16,7 @@ const buttonTypeCloseAdd = popupAdd.querySelector('.button_type_close');
 const buttonTypeCloseImage = popupImage.querySelector('.button_type_close');
 export const name = document.querySelector('.profile__title');
 export const job = document.querySelector('.profile__subtitle');
+export const userImage = document.querySelector('.profile__image');
 const formElement = document.querySelector('.form');
 export const nameInput = document.querySelector('.form__item_type_name');
 export const jobInput = document.querySelector('.form__item_type_job');
