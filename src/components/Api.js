@@ -81,7 +81,7 @@ export class Api {
   }
   
   setLike(data) {
-    return fetch(`${this._url}/cards/likes/${data._id}`, {
+    return fetch(`${this._baseUrl}/cards/likes/${data._id}`, {
       method: 'PUT',
       headers: this._headers,
     })
@@ -94,7 +94,7 @@ export class Api {
   }
 
   deleteLike(data) {
-    return fetch(`${this._url}/cards/likes/${data._id}`, {
+    return fetch(`${this._baseUrl}/cards/likes/${data._id}`, {
       method: 'DELETE',
       headers: this._headers,
     })

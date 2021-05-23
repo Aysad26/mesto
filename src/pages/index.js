@@ -58,7 +58,18 @@ const addNewCard = (data) => {
       targetCard = cardElement;
       popupWithConfirm.open(data)
     },
-    
+    function handleLikeAdd(data) {
+      api.setLike(data)
+        .then((data) => {
+          cardElement.setLikeCounter(data);
+        })
+    },
+    function handleLikeRemove(data) {
+      api.deleteLike(data)
+        .then((data) => {
+          cardElement.setLikeCounter(data);
+        })
+    },
     '.element__item-template'
   );
   const cardData = data;
