@@ -3,7 +3,7 @@ export class Card {
       this._cardData = cardData;
       this._userId = userId;
       this._cardCreatorId = this._cardData.owner._id;
-      this.cardId = this._cardData.id;
+      this._cardId = this._cardData._id;
       this._likes = this._cardData.likes;
       this._isLiked = false;
       this._templateSelector = templateSelector;
@@ -19,10 +19,9 @@ export class Card {
     generateCard() {
       this._elementItem = this._getTemplate();
       const title = this._elementItem.querySelector('.elements__title');
-      this.likeButton = this._elementItem.querySelector('.elements__like');
-      this.likeCounter = this._elementItem.querySelector('.elements__like-counter');
+      this._likeButton = this._elementItem.querySelector('.elements__like');
+      this._likeCounter = this._elementItem.querySelector('.elements__like-counter');
       this.removeButton = this._elementItem.querySelector('.elements__remove');
-      console.log (this._userId);
       if (this._userId === this._cardCreatorId) {
         this.removeButton.classList.remove('elements__remove_inactive');
       }
@@ -30,20 +29,29 @@ export class Card {
       this.image.src = this._cardData.link;
       this.image.alt = this._cardData.name;
       title.textContent = this._cardData.name;
-      this.likeCounter.textContent = String(this._likes.length);
       this._makeEventListeners();
       return this._elementItem;
     }
   
     _like() {
-      this.likeButton.classList.toggle("elements__like_active");
+      this._likeButton.classList.toggle("elements__like_active");
     }
   
     _removeCard() {
       this._elementItem.remove();
       this._elementItem = null;
     }
-  
+
+    deleteCard() {
+      this._removeCard(this._elementItem);
+    }
+
+    setCounter(data) {
+      this._likeCounter.textContent = String(data.likes.length);
+      console.log (String(data.likes.length));
+    }
+
+      
     _makeEventListeners() {
       this.likeButton.addEventListener('click', () => this._like());
       this.removeButton.addEventListener('click', () => this._handleRemoveClick());

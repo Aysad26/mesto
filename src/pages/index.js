@@ -28,6 +28,8 @@ import {
 import Section from '../components/Section';
 
 let userId = null;
+let cardId = null;
+let targetCard = null;
 
 const allClasses = {
   formSelector: '.form',
@@ -46,6 +48,25 @@ const api = new Api({
   }
 });
 
+
+const addNewCard = (data) => {
+  const cardElement = new Card(
+    data, 
+    userId, 
+    function handleCardClick() {popupWithImage.open(data)}, 
+    function handleRemoveClick() {
+      targetCard = cardElement;
+      popupWithConfirm.open(data)
+    },
+    
+    '.element__item-template'
+  );
+  const cardData = data;
+  cardId = cardData._id; 
+  return cardElement; 
+}
+
+
 api.getUserInfo()
 .then((data) => {
   const userData = data
@@ -53,20 +74,14 @@ api.getUserInfo()
   userInfo.setUserInfo(data);
   })
 
-console.log (userId);
-
 api.getCards()
 .then((data) => {
   const cardSection = new Section({ 
     items: data, 
-    renderer: function(item) { 
-      const cardElement = new Card(
-        item,
-        userId,
-        function handleCardClick() {popupWithImage.open(item)}, 
-        function handleRemoveClick() {popupWithConfirm.open(item)},
-        '.element__item-template'); 
-      return cardElement.generateCard(); 
+    renderer: (data) => { 
+      const cardElement = addNewCard(data);
+      const newCard = cardElement.generateCard(); 
+      return newCard; 
     } 
   },  
   '.elements__grid' 
@@ -79,7 +94,14 @@ const userInfo = new UserInfo('.profile__title', '.profile__subtitle', '.profile
 const popupWithImage = new PopupWithImage('.popup_type_image');
 popupWithImage.setEventListeners();
 
-const popupWithConfirm = new PopupWithConfirm('.popup_type_remove');
+const popupWithConfirm = new PopupWithConfirm('.popup_type_remove', function submitHandler() {
+    api.deleteCard(cardId)
+      .then(() => targetCard.deleteCard())
+      .then(() => {
+        targetCard = null;
+      })
+});
+
 popupWithConfirm.setEventListeners()
 
 const popupEditForm = new PopupWithForm('.popup_type_edit', 
@@ -100,14 +122,10 @@ function submitHandler() {
     .then((data) => {
       const cardSection = new Section({ 
         items: data, 
-        renderer: function(item) { 
-          const cardElement = new Card(
-            item,
-            userId, 
-            function handleCardClick() {popupWithImage.open(item)}, 
-            function handleRemoveClick() {popupWithConfirm.open(item)},
-            '.element__item-template'); 
-          return cardElement.generateCard(); 
+        renderer: (data) => { 
+          const cardElement = addNewCard(data);
+          const newCard = cardElement.generateCard(); 
+          return newCard; 
         } 
       },  
       '.elements__grid' 
