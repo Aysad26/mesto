@@ -27,6 +27,8 @@ import {
 
 import Section from '../components/Section';
 
+let userId = null;
+
 const allClasses = {
   formSelector: '.form',
   inputSelector: '.form__item',
@@ -44,12 +46,26 @@ const api = new Api({
   }
 });
 
+api.getUserInfo()
+.then((data) => {
+  const userData = data
+  userId = userData._id;
+  userInfo.setUserInfo(data);
+  })
+
+console.log (userId);
+
 api.getCards()
 .then((data) => {
   const cardSection = new Section({ 
     items: data, 
     renderer: function(item) { 
-      const cardElement = new Card(item, function handleCardClick() {popupWithImage.open(item)}, '.element__item-template'); 
+      const cardElement = new Card(
+        item,
+        userId,
+        function handleCardClick() {popupWithImage.open(item)}, 
+        function handleRemoveClick() {popupWithConfirm.open(item)},
+        '.element__item-template'); 
       return cardElement.generateCard(); 
     } 
   },  
@@ -60,13 +76,11 @@ api.getCards()
 
 const userInfo = new UserInfo('.profile__title', '.profile__subtitle', '.profile__image')
 
-api.getUserInfo()
-.then((data) => {
-  userInfo.setUserInfo(data);
-})
-
 const popupWithImage = new PopupWithImage('.popup_type_image');
-popupWithImage.setEventListeners()
+popupWithImage.setEventListeners();
+
+const popupWithConfirm = new PopupWithConfirm('.popup_type_remove');
+popupWithConfirm.setEventListeners()
 
 const popupEditForm = new PopupWithForm('.popup_type_edit', 
   function submitHandler() {
@@ -82,13 +96,17 @@ popupEditForm.setEventListeners();
 
 const popupAddForm = new PopupWithForm('.popup_type_add', 
 function submitHandler() {
-    api
-    .addCard({name: titleInput.value , link: linkInput.value})
+    api.addCard({name: titleInput.value , link: linkInput.value})
     .then((data) => {
       const cardSection = new Section({ 
         items: data, 
         renderer: function(item) { 
-          const cardElement = new Card(item, function handleCardClick() {popupWithImage.open(item)}, '.element__item-template'); 
+          const cardElement = new Card(
+            item,
+            userId, 
+            function handleCardClick() {popupWithImage.open(item)}, 
+            function handleRemoveClick() {popupWithConfirm.open(item)},
+            '.element__item-template'); 
           return cardElement.generateCard(); 
         } 
       },  

@@ -94,11 +94,14 @@
   </section>
   <template class="element__item-template">
     <li class="elements__item">
-      <button class="elements__remove" type="button"></button>
+      <button class="elements__remove elements__remove_inactive" type="button"></button>
       <img class="elements__image" src="./images/photo-1511084891045-5415f5b81475.jpg" alt="Москва">
       <div class="elements__info">
         <h2 class="elements__title"></h2>
-        <button class="elements__like" type="button"></button>
+        <div class="elements__like-container">
+          <button class="elements__like" type="button"></button>
+          <p class="elements__like-counter">0</p>
+        </div>
       </div>
     </li>
   </template>
