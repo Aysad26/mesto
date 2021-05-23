@@ -4,12 +4,4 @@
     object-position: center;
     object-fit: cover;
     border-radius: 50%;
-    margin-right: 30px;
 }
-
-@media screen and (max-width: 900px) {
-    .profile__image {
-      margin-right: 0px;
-      margin-bottom: 26px;
-    }
-  }

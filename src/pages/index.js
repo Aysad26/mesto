@@ -11,9 +11,11 @@ import UserInfo from '../components/UserInfo.js';
 import { 
   list, 
   buttonTypeEdit, 
-  buttonTypeAdd, 
+  buttonTypeAdd,
+  buttonTypeEditProfile, 
   formElementProfile, 
   formElementAdd, 
+  formElementImageProfile,
   popupAdd, 
   popupEdit, 
   nameInput, 
@@ -22,6 +24,7 @@ import {
   job, 
   titleInput, 
   linkInput,
+  linkAvatarInput,
   userImage
 } from '../components/constants.js';
 
@@ -148,6 +151,19 @@ function submitHandler() {
 
 popupAddForm.setEventListeners()
 
+const popupEditAvatarForm = new PopupWithForm('.popup_type_edit-profile', 
+function submitHandler() {
+  api.changeUserImage(linkAvatarInput.value)
+    .then((data) => {
+      userInfo.setUserAvatar(data);
+    })
+  formElementImageProfile.reset();
+}
+  
+);
+
+popupEditAvatarForm.setEventListeners()
+
 function handlePopupEditProfile() {
   const userData = userInfo.getUserInfo()
   nameInput.value = userData.name
@@ -158,6 +174,9 @@ function handlePopupEditProfile() {
 const profileFormValidator = new FormValidator(allClasses, formElementProfile);
 profileFormValidator.enableValidation();
 
+const profileImageFormValidator = new FormValidator(allClasses, formElementImageProfile);
+profileImageFormValidator.enableValidation();
+
 const addFormValidator = new FormValidator(allClasses, formElementAdd);
 addFormValidator.enableValidation();
 
@@ -166,4 +185,9 @@ buttonTypeEdit.addEventListener('click', handlePopupEditProfile);
 buttonTypeAdd.addEventListener('click', () => {
   popupAddForm.open();
   addFormValidator.toggleButtonState();
+});
+
+buttonTypeEditProfile.addEventListener('click', () => {
+  popupEditAvatarForm.open();
+  profileImageFormValidator.toggleButtonState();
 });

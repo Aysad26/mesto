@@ -6,6 +6,7 @@ export default class UserInfo {
         this._job = document.querySelector(jobSelector)
         this._userPhoto = document.querySelector(userPhotoSelector)
         this._userId = userId
+        this._avatar = document.querySelector('.profile__image')
     }
     getUserInfo() {
         const userData = {
@@ -18,6 +19,8 @@ export default class UserInfo {
     setUserInfo(data) {
         this._name.textContent = data.name;
         this._job.textContent = data.about;
+        this.setUserAvatar(data);
+        this._avatar.alt = `${data.name}`;
     }
 
     setUserAvatar(data) {

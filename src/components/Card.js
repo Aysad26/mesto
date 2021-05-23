@@ -23,6 +23,7 @@ export class Card {
       const title = this._elementItem.querySelector('.elements__title');
       this._likeButton = this._elementItem.querySelector('.elements__like');
       this._likeCounter = this._elementItem.querySelector('.elements__like-counter');
+      this._likeCounter.textContent = String(this._likes.length);
       this.removeButton = this._elementItem.querySelector('.elements__remove');
       if (this._userId === this._cardCreatorId) {
         this.removeButton.classList.remove('elements__remove_inactive');

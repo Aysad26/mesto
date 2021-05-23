@@ -50,6 +50,24 @@ export class Api {
       })
     }
 
+    changeUserImage(data) {
+      return fetch(`${this._baseUrl}/users/me/avatar`, {
+        method: 'PATCH',
+        headers: this._headers,
+        body: JSON.stringify({
+          avatar: data
+        })
+      })
+      .then(res => {
+        if (res.ok) {
+          return res.json()
+        } else {
+          return Promise.reject(`Ошибка: ${res.status}`)
+        }
+    })
+    }
+  
+
     addCard({name, link}) {
       return fetch(`${this._baseUrl}/cards`, {
         method: 'POST',
