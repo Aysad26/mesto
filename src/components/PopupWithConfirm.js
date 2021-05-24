@@ -5,6 +5,8 @@ export class PopupWithConfirm extends Popup {
       super(popupSelector, submitHandler);
       this._submitHandler = submitHandler;
       this._popup = document.querySelector(popupSelector); 
+      this._submitButton = this._popup.querySelector('.button_type_submit')
+      this._buttonText = this._submitButton.textContent;
     }
   
     setEventListeners() {
@@ -14,6 +16,15 @@ export class PopupWithConfirm extends Popup {
         this._submitHandler(this._element);
         this.close();
       });
+    }
+
+    getLoadingMessage(isLoading, loadingMessage) {
+      this._submitButton = this._popup.querySelector('.button_type_submit')
+      if (isLoading) {
+        this._submitButton.textContent = loadingMessage;
+      } else {
+        this._submitButton.textContent = this._buttonText;
+      }
     }
 
     open(card) {

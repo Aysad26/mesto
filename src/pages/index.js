@@ -86,20 +86,19 @@ api.getUserInfo()
   const userData = data
   userId = userData._id;
   userInfo.setUserInfo(data);
-  })
+})
 
 api.getCards()
 .then((data) => {
-  const cardSection = new Section({ 
+  const cardSection = new Section({
     items: data, 
-    renderer: (data) => { 
-      const cardElement = addNewCard(data);
+    renderer: (data) => {
+      const cardElement = addNewCard(data); 
       const newCard = cardElement.generateCard(); 
-      return newCard; 
-    } 
-  },  
-  '.elements__grid' 
-  ); 
+      return newCard;
+      }
+    }, 
+    '.elements__grid'); 
   cardSection.renderItems(data);
 })
 
@@ -109,21 +108,25 @@ const popupWithImage = new PopupWithImage('.popup_type_image');
 popupWithImage.setEventListeners();
 
 const popupWithConfirm = new PopupWithConfirm('.popup_type_remove', function submitHandler() {
+    popupWithConfirm.getLoadingMessage(true, 'Сохранение...');
     api.deleteCard(cardId)
       .then(() => targetCard.deleteCard())
       .then(() => {
         targetCard = null;
       })
+      .then(() => popupWithConfirm.getLoadingMessage(false))
 });
 
 popupWithConfirm.setEventListeners()
 
 const popupEditForm = new PopupWithForm('.popup_type_edit', 
   function submitHandler() {
+    popupEditForm.getLoadingMessage(true, 'Сохранение...');
     api.changeUserInfo({name: nameInput.value , job: jobInput.value})
     .then((res) => {
       userInfo.setUserInfo(res);
     })
+    .then(() => popupEditForm.getLoadingMessage(false))
   });
 
 popupEditForm.setEventListeners();
@@ -132,31 +135,34 @@ popupEditForm.setEventListeners();
 
 const popupAddForm = new PopupWithForm('.popup_type_add', 
 function submitHandler() {
+    popupAddForm.getLoadingMessage(true, 'Сохранение...');
     api.addCard({name: titleInput.value , link: linkInput.value})
     .then((data) => {
-      const cardSection = new Section({ 
+      const cardSection = new Section({
         items: data, 
-        renderer: (data) => { 
-          const cardElement = addNewCard(data);
+        renderer: (data) => {
+          const cardElement = addNewCard(data); 
           const newCard = cardElement.generateCard(); 
-          return newCard; 
-        } 
-      },  
-      '.elements__grid' 
-      ); 
+          return newCard;
+          }
+        }, 
+        '.elements__grid'); 
       cardSection.addItem(data);
-  formElementAdd.reset();
-  })
+      formElementAdd.reset();
+    })
+    .then(() => popupAddForm.getLoadingMessage(false)) 
 });
 
 popupAddForm.setEventListeners()
 
 const popupEditAvatarForm = new PopupWithForm('.popup_type_edit-profile', 
 function submitHandler() {
+  popupEditAvatarForm.getLoadingMessage(true, 'Сохранение...');
   api.changeUserImage(linkAvatarInput.value)
     .then((data) => {
       userInfo.setUserAvatar(data);
     })
+    .then(() => popupAddForm.getLoadingMessage(false))
   formElementImageProfile.reset();
 }
   
