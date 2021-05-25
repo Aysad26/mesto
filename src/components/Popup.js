@@ -14,18 +14,27 @@ class Popup {
     close() {
       this._popup.classList.remove("popup_opened")
       document.removeEventListener('keyup', this._handleEscClose)
-  }
+    }
   
     _handleEscClose(evt) {
       if (evt.key === 'Escape') {
           this.close()
       }
+    }
+
+  getLoadingMessage(isLoading, loadingMessage) {
+    this._submitButton = this._popup.querySelector('.button_type_submit')
+    if (isLoading) {
+      this._submitButton.textContent = loadingMessage;
+    } else {
+      this._submitButton.textContent = this._buttonText;
+    }
   }
   
-    setEventListeners() {
-      this.buttonTypeClose.addEventListener('click', () => this.close());
-      this.overlay.addEventListener('click', () => this.close());
-    }
+   setEventListeners() {
+    this.buttonTypeClose.addEventListener('click', () => this.close());
+    this.overlay.addEventListener('click', () => this.close());
+  }
     
 }
 

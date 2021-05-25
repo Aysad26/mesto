@@ -51,6 +51,20 @@ const api = new Api({
   }
 });
 
+Promise.all([api.getUserInfo(), api.getCards()])
+  .then(([userData, cards]) => {
+    userId = userData._id;
+    userInfo.setUserInfo({
+      name: userData.name,
+      about: userData.job,
+      userId: userData._id,
+      avatar: userData.avatar
+    })
+    const cardSection = cardList(cards)
+    cardSection.renderItems(cards);
+  })
+  .catch((error) => {console.error(error);})
+
 
 const addNewCard = (data) => {
   const cardElement = new Card(
@@ -66,12 +80,14 @@ const addNewCard = (data) => {
         .then((data) => {
           cardElement.setLikeCounter(data);
         })
+        .catch((error) => {console.error(error);});
     },
     function handleLikeRemove(data) {
       api.deleteLike(data)
         .then((data) => {
           cardElement.setLikeCounter(data);
         })
+        .catch((error) => {console.error(error);});
     },
     '.element__item-template'
   );
@@ -94,19 +110,6 @@ const cardList = (data) => {
   return section;
 }
 
-api.getUserInfo()
-.then((data) => {
-  const userData = data
-  userId = userData._id;
-  userInfo.setUserInfo(data);
-})
-
-api.getCards()
-.then((data) => {
-  const cardSection = cardList(data)
-  cardSection.renderItems(data);
-})
-
 const userInfo = new UserInfo('.profile__title', '.profile__subtitle', '.profile__image')
 
 const popupWithImage = new PopupWithImage('.popup_type_image');
@@ -116,50 +119,58 @@ popupWithImage.setEventListeners();
 const popupWithConfirm = new PopupWithConfirm('.popup_type_remove', function submitHandler() {
     popupWithConfirm.getLoadingMessage(true, 'Сохранение...');
     api.deleteCard(cardId)
-      .then(() => targetCard.deleteCard())
       .then(() => {
+        targetCard.deleteCard();
         targetCard = null;
+        popupWithConfirm.close();
       })
-      .then(() => popupWithConfirm.getLoadingMessage(false))
+      .catch((error) => {console.error(error);})
+      .finally(() => popupWithConfirm.getLoadingMessage(false))
 });
 
 popupWithConfirm.setEventListeners()
 
 const popupEditForm = new PopupWithForm('.popup_type_edit', 
-  function submitHandler() {
+  function submitHandler(data) {
     popupEditForm.getLoadingMessage(true, 'Сохранение...');
-    api.changeUserInfo({name: nameInput.value , job: jobInput.value})
-    .then((res) => {
-      userInfo.setUserInfo(res);
+    api.changeUserInfo(data)
+    .then((data) => {
+      userInfo.setUserInfo(data);
+      popupEditForm.close();
     })
-    .then(() => popupEditForm.getLoadingMessage(false))
+    .catch((error) => {console.error(error);})
+    .finally(() => popupEditForm.getLoadingMessage(false))
   });
 
 popupEditForm.setEventListeners();
 
 
 const popupAddForm = new PopupWithForm('.popup_type_add', 
-function submitHandler() {
+function submitHandler(data) {
     popupAddForm.getLoadingMessage(true, 'Сохранение...');
-    api.addCard({name: titleInput.value , link: linkInput.value})
+    api.addCard(data)
     .then((data) => {
       const cardSection = cardList(data) 
       cardSection.addItem(data);
+      popupAddForm.close();
       formElementAdd.reset();
     })
-    .then(() => popupAddForm.getLoadingMessage(false)) 
+    .catch((error) => {console.error(error);})
+    .finally(() => popupAddForm.getLoadingMessage(false)) 
 });
 
 popupAddForm.setEventListeners()
 
 const popupEditAvatarForm = new PopupWithForm('.popup_type_edit-profile', 
-  function submitHandler() {
+  function submitHandler(data) {
     popupEditAvatarForm.getLoadingMessage(true, 'Сохранение...');
-    api.changeUserImage(linkAvatarInput.value)
-      .then((data) => {
-        userInfo.setUserAvatar(data);
+    api.changeUserImage(data)
+      .then((res) => {
+        userInfo.setUserAvatar(res);
+        popupEditAvatarForm.close();
       })
-      .then(() => popupAddForm.getLoadingMessage(false))
+      .catch((error) => {console.error(error);})
+      .finally(() => popupEditAvatarForm.getLoadingMessage(false))
     formElementImageProfile.reset();
   }
 );

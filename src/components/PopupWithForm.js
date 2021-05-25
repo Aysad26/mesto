@@ -18,21 +18,12 @@ export class PopupWithForm extends Popup {
         return value
     }
 
-    getLoadingMessage(isLoading, loadingMessage) {
-      this._submitButton = this._popup.querySelector('.button_type_submit')
-      if (isLoading) {
-        this._submitButton.textContent = loadingMessage;
-      } else {
-        this._submitButton.textContent = this._buttonText;
-      }
-    }
-
     setEventListeners() {
       super.setEventListeners()
       this._form.addEventListener("submit", (evt) => {
+        console.log (this._getInputValues());
           evt.preventDefault();
           this._submitHandler(this._getInputValues());
-          this.close();
       })
   }
 

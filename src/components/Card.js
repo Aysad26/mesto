@@ -24,6 +24,7 @@ export class Card {
       this._likeButton = this._elementItem.querySelector('.elements__like');
       this._likeCounter = this._elementItem.querySelector('.elements__like-counter');
       this._likeCounter.textContent = String(this._likes.length);
+      this._checkLikeState()
       this.removeButton = this._elementItem.querySelector('.elements__remove');
       if (this._userId === this._cardCreatorId) {
         this.removeButton.classList.remove('elements__remove_inactive');
@@ -59,6 +60,14 @@ export class Card {
     _addlike(data) {
       this._likeButton.classList.add("elements__like_active");
       this._handleLikeAdd(data);
+    }
+
+    _checkLikeState() {
+      this._likes.forEach((likeUser) => {
+        if (likeUser._id === this._userId) {
+          this._likeButton.classList.add("elements__like_active");
+        }
+      })
     }
   
     setLikeCounter(data) {
