@@ -56,7 +56,7 @@ Promise.all([api.getUserInfo(), api.getCards()])
     userId = userData._id;
     userInfo.setUserInfo({
       name: userData.name,
-      about: userData.job,
+      about: userData.about,
       userId: userData._id,
       avatar: userData.avatar
     })
