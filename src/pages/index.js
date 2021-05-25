@@ -80,6 +80,19 @@ const addNewCard = (data) => {
   return cardElement; 
 }
 
+const cardList = (data) => {
+  const section = new Section({
+    items: data, 
+    renderer: (data) => {
+      const cardElement = addNewCard(data); 
+      const newCard = cardElement.generateCard(); 
+      cardElement.setLikeCounter(data);
+      return newCard;
+      }
+    }, 
+  '.elements__grid');
+  return section;
+}
 
 api.getUserInfo()
 .then((data) => {
@@ -90,21 +103,14 @@ api.getUserInfo()
 
 api.getCards()
 .then((data) => {
-  const cardSection = new Section({
-    items: data, 
-    renderer: (data) => {
-      const cardElement = addNewCard(data); 
-      const newCard = cardElement.generateCard(); 
-      return newCard;
-      }
-    }, 
-    '.elements__grid'); 
+  const cardSection = cardList(data)
   cardSection.renderItems(data);
 })
 
 const userInfo = new UserInfo('.profile__title', '.profile__subtitle', '.profile__image')
 
 const popupWithImage = new PopupWithImage('.popup_type_image');
+
 popupWithImage.setEventListeners();
 
 const popupWithConfirm = new PopupWithConfirm('.popup_type_remove', function submitHandler() {
@@ -132,21 +138,12 @@ const popupEditForm = new PopupWithForm('.popup_type_edit',
 popupEditForm.setEventListeners();
 
 
-
 const popupAddForm = new PopupWithForm('.popup_type_add', 
 function submitHandler() {
     popupAddForm.getLoadingMessage(true, 'Сохранение...');
     api.addCard({name: titleInput.value , link: linkInput.value})
     .then((data) => {
-      const cardSection = new Section({
-        items: data, 
-        renderer: (data) => {
-          const cardElement = addNewCard(data); 
-          const newCard = cardElement.generateCard(); 
-          return newCard;
-          }
-        }, 
-        '.elements__grid'); 
+      const cardSection = cardList(data) 
       cardSection.addItem(data);
       formElementAdd.reset();
     })
@@ -156,16 +153,15 @@ function submitHandler() {
 popupAddForm.setEventListeners()
 
 const popupEditAvatarForm = new PopupWithForm('.popup_type_edit-profile', 
-function submitHandler() {
-  popupEditAvatarForm.getLoadingMessage(true, 'Сохранение...');
-  api.changeUserImage(linkAvatarInput.value)
-    .then((data) => {
-      userInfo.setUserAvatar(data);
-    })
-    .then(() => popupAddForm.getLoadingMessage(false))
-  formElementImageProfile.reset();
-}
-  
+  function submitHandler() {
+    popupEditAvatarForm.getLoadingMessage(true, 'Сохранение...');
+    api.changeUserImage(linkAvatarInput.value)
+      .then((data) => {
+        userInfo.setUserAvatar(data);
+      })
+      .then(() => popupAddForm.getLoadingMessage(false))
+    formElementImageProfile.reset();
+  }
 );
 
 popupEditAvatarForm.setEventListeners()
